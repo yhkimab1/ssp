@@ -5,6 +5,7 @@ import { DDay } from "@/components/DDay";
 import { StepIndicator } from "@/components/StepIndicator";
 import { formatDate } from "@/lib/date";
 import { getProgram, getPrograms } from "@/lib/services/programs";
+import { amountLabel } from "@/lib/support";
 import { DocumentChecklist } from "./DocumentChecklist";
 
 export async function generateStaticParams() {
@@ -52,7 +53,7 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[id]"
             <p className="mt-5 leading-relaxed text-slate-700">{program.description}</p>
 
             <dl className="mt-6 grid gap-3 rounded-xl bg-slate-50 p-4 text-sm sm:grid-cols-2">
-              <Info label="지원금액" value={program.amount} strong />
+              <Info label={amountLabel(program.supportType)} value={program.amount} strong />
               <Info
                 label="신청기간"
                 value={`${formatDate(program.applyStart)} ~ ${

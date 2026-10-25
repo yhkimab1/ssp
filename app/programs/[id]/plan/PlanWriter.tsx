@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { generateBusinessPlan } from "@/lib/services/plan";
+import { usageWording } from "@/lib/support";
 import { useBusinessProfile } from "@/lib/storage";
 import type { PlanInput, Program } from "@/lib/types";
 
@@ -42,7 +43,7 @@ const FIELDS: {
   },
   {
     key: "fundUsage",
-    label: "지원금을 어디에 쓰고 싶나요?",
+    label: "", // 지원 방식에 따라 달라서 화면에서 채웁니다 (lib/support.ts)
     placeholder: "예: 키오스크 1대와 테이블오더를 도입해 주문 시간을 줄이고 인건비를 절감",
     type: "textarea",
   },
@@ -54,6 +55,7 @@ export function PlanWriter({ program }: { program: Program }) {
   const [draft, setDraft] = useState("");
   const [generating, setGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
+  const usageQuestion = usageWording(program.supportType).question;
 
   async function handleGenerate(e: React.FormEvent) {
     e.preventDefault();
@@ -94,7 +96,9 @@ export function PlanWriter({ program }: { program: Program }) {
         )}
         {FIELDS.map((field) => (
           <label key={field.key} className="block">
-            <span className="text-sm font-semibold text-slate-800">{field.label}</span>
+            <span className="text-sm font-semibold text-slate-800">
+              {field.key === "fundUsage" ? usageQuestion : field.label}
+            </span>
             {field.type === "textarea" ? (
               <textarea
                 rows={3}
@@ -130,7 +134,7 @@ export function PlanWriter({ program }: { program: Program }) {
         >
           {generating ? "초안을 만들고 있어요…" : draft ? "다시 만들기" : "사업계획서 초안 만들기"}
         </button>
-        <p className="text-xs text-slate-500">빈칸이 있어도 만들 수 있어요. 빈 곳은 괄호로 표시돼요.</p>
+        <p className="text-xs text-slate-500">빈칸이 있어도 만들 수 있어요. 빈 곳은 [추가 입력 필요]로 표시돼요.</p>
       </form>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:sticky lg:top-6">

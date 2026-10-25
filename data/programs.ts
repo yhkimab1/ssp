@@ -3,9 +3,15 @@ import type { Program } from "@/lib/types";
 // ⚠️ 화면 확인용 가짜 샘플 데이터입니다. 실제 공고가 아닙니다.
 // 나중에 Supabase를 연결하면 lib/services/programs.ts 가 이 파일 대신 DB에서 데이터를 가져옵니다.
 
+// 신분증은 사용자 거부감이 커서, 우리 사이트에 올리는 서류가 아님을 분명히 적어 둡니다.
+const ID_CARD_DOC = {
+  name: "대표자 신분증 사본",
+  note: "우리 사이트에 올리는 것이 아니라, 신청 시 기관에 제출하는 서류예요",
+};
+
 const COMMON_DOCS = [
   { name: "사업자등록증 사본" },
-  { name: "대표자 신분증 사본" },
+  ID_CARD_DOC,
   { name: "부가가치세 과세표준증명원", note: "홈택스에서 발급" },
   { name: "국세·지방세 완납증명서", note: "발급일 기준 1개월 이내" },
 ];
@@ -16,6 +22,7 @@ export const PROGRAMS: Program[] = [
     name: "소상공인 정책자금 (일반경영안정자금)",
     agency: "중소벤처기업부 · 소상공인시장진흥공단",
     category: "자금 지원",
+    supportType: "융자",
     scope: "national",
     region: "전국",
     amount: "업체당 최대 7,000만 원 (저금리 융자)",
@@ -48,6 +55,7 @@ export const PROGRAMS: Program[] = [
     name: "소상공인 스마트상점 기술보급사업",
     agency: "중소벤처기업부 · 소상공인시장진흥공단",
     category: "디지털 전환",
+    supportType: "보조금",
     scope: "national",
     region: "전국",
     amount: "공급가액의 최대 70%, 최대 500만 원",
@@ -80,6 +88,7 @@ export const PROGRAMS: Program[] = [
     name: "소상공인 온라인 판로 진출 지원",
     agency: "중소벤처기업부",
     category: "판로·마케팅",
+    supportType: "바우처",
     scope: "national",
     region: "전국",
     amount: "업체당 최대 300만 원 상당 (상세페이지·광고 바우처)",
@@ -112,6 +121,7 @@ export const PROGRAMS: Program[] = [
     name: "신사업창업사관학교 (예비·초기 창업자)",
     agency: "소상공인시장진흥공단",
     category: "교육·컨설팅",
+    supportType: "교육·컨설팅",
     scope: "national",
     region: "전국",
     amount: "교육 무료 + 사업화 자금 최대 4,000만 원 (자부담 50%)",
@@ -132,7 +142,7 @@ export const PROGRAMS: Program[] = [
     targetBusinessTypes: "all",
     documents: [
       { name: "사업계획서", note: "지정 양식" },
-      { name: "대표자 신분증 사본" },
+      ID_CARD_DOC,
       { name: "사업자등록증 사본", note: "창업한 경우" },
       { name: "개인정보 수집·이용 동의서" },
     ],
@@ -144,6 +154,7 @@ export const PROGRAMS: Program[] = [
     name: "희망리턴패키지 (경영개선 지원)",
     agency: "소상공인시장진흥공단",
     category: "교육·컨설팅",
+    supportType: "교육·컨설팅",
     scope: "national",
     region: "전국",
     amount: "전문가 컨설팅 + 경영개선 사업화 자금 최대 2,000만 원",
@@ -174,6 +185,7 @@ export const PROGRAMS: Program[] = [
     name: "서울시 소상공인 점포 환경개선 지원",
     agency: "서울특별시 · 서울신용보증재단",
     category: "시설·환경 개선",
+    supportType: "보조금",
     scope: "regional",
     region: "서울특별시",
     amount: "업체당 최대 300만 원 (자부담 10%)",
@@ -208,6 +220,7 @@ export const PROGRAMS: Program[] = [
     name: "서울시 골목상권 온라인 마케팅 지원",
     agency: "서울특별시",
     category: "판로·마케팅",
+    supportType: "바우처",
     scope: "regional",
     region: "서울특별시",
     amount: "업체당 최대 150만 원 상당 마케팅 바우처",
@@ -233,6 +246,7 @@ export const PROGRAMS: Program[] = [
     name: "경기도 소상공인 특례보증",
     agency: "경기도 · 경기신용보증재단",
     category: "자금 지원",
+    supportType: "보증",
     scope: "regional",
     region: "경기도",
     amount: "업체당 최대 5,000만 원 보증 + 이자 1.5%p 지원",
@@ -261,6 +275,7 @@ export const PROGRAMS: Program[] = [
     name: "부산시 청년 소상공인 창업 지원",
     agency: "부산광역시 · 부산경제진흥원",
     category: "자금 지원",
+    supportType: "보조금",
     scope: "regional",
     region: "부산광역시",
     amount: "업체당 최대 1,500만 원 (임차료·인테리어비)",
@@ -292,6 +307,7 @@ export const PROGRAMS: Program[] = [
     name: "제주 로컬브랜드 육성 지원",
     agency: "제주특별자치도",
     category: "판로·마케팅",
+    supportType: "보조금",
     scope: "regional",
     region: "제주특별자치도",
     amount: "업체당 최대 1,000만 원 (브랜딩·포장 디자인)",

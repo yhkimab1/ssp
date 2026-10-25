@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Program } from "@/lib/types";
 import { formatDate } from "@/lib/date";
+import { amountLabel } from "@/lib/support";
 import { DDay } from "@/components/DDay";
 
 export function ProgramCard({ program, industryMatch }: { program: Program; industryMatch?: boolean }) {
@@ -38,7 +39,7 @@ export function ProgramCard({ program, industryMatch }: { program: Program; indu
 
       <dl className="mt-4 grid gap-1.5 border-t border-slate-100 pt-4 text-sm">
         <div className="flex gap-3">
-          <dt className="w-14 shrink-0 text-slate-500">지원금액</dt>
+          <dt className="w-14 shrink-0 text-slate-500">{amountLabel(program.supportType)}</dt>
           <dd className="font-semibold text-brand-700">{program.amount}</dd>
         </div>
         <div className="flex gap-3">

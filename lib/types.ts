@@ -17,6 +17,9 @@ export type ProgramCategory =
   | "판로·마케팅"
   | "디지털 전환";
 
+/** 지원 방식. 융자·보증은 갚거나 보증받는 돈이라 "지원금"이라고 부르지 않습니다. */
+export type SupportType = "보조금" | "융자" | "보증" | "바우처" | "교육·컨설팅";
+
 /** 정부지원사업 한 건 */
 export type Program = {
   id: string;
@@ -24,11 +27,12 @@ export type Program = {
   /** 주관기관 */
   agency: string;
   category: ProgramCategory;
+  supportType: SupportType;
   /** national = 전국 사업, regional = 지역 사업 */
   scope: "national" | "regional";
   /** "전국" 또는 시/도 이름 */
   region: string;
-  /** 지원금액 표시용 문구 */
+  /** 지원 규모 표시용 문구 (융자한도·보증한도·지원금액 등) */
   amount: string;
   /** 신청 시작일 (YYYY-MM-DD) */
   applyStart: string;
